@@ -3,6 +3,7 @@ PRODUCT_PACKAGES += \
     Gallery2 \
     LatinIME \
     messaging \
+    OmniStyle \
     ThemePicker \
     AOSiPOverlayStub \
     Updater
