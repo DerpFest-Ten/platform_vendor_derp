@@ -143,7 +143,7 @@ def fetch_query(remote_url, query):
 
 if __name__ == '__main__':
     # Default to AOSiP Gerrit
-    default_gerrit = 'https://review.aosip.dev'
+    default_gerrit = 'https://review.derp.dev'
 
     parser = argparse.ArgumentParser(formatter_class=argparse.RawDescriptionHelpFormatter, description=textwrap.dedent('''\
         repopick.py is a utility to simplify the process of cherry picking
@@ -446,9 +446,9 @@ if __name__ == '__main__':
                 print('Trying to fetch the change from GitHub')
 
             if args.pull:
-                cmd = ['git pull --no-edit aosip', item['fetch'][method]['ref']]
+                cmd = ['git pull --no-edit derp', item['fetch'][method]['ref']]
             else:
-                cmd = ['git fetch aosip', item['fetch'][method]['ref']]
+                cmd = ['git fetch derp', item['fetch'][method]['ref']]
             if args.quiet:
                 cmd.append('--quiet')
             else:
