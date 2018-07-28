@@ -47,7 +47,7 @@ trap cleanup 0
 #
 # $1: device name
 # $2: vendor name
-# $3: AOSIP root directory
+# $3: DERP root directory
 # $4: is common device - optional, default to false
 # $5: cleanup - optional, default to true
 # $6: custom vendor makefile name - optional, default to false
@@ -68,15 +68,15 @@ function setup_vendor() {
         exit 1
     fi
 
-    export AOSIP_ROOT="$3"
-    if [ ! -d "$AOSIP_ROOT" ]; then
-        echo "\$AOSIP_ROOT must be set and valid before including this script!"
+    export DERP_ROOT="$3"
+    if [ ! -d "$DERP_ROOT" ]; then
+        echo "\$DERP_ROOT must be set and valid before including this script!"
         exit 1
     fi
 
     export OUTDIR=vendor/"$VENDOR"/"$DEVICE"
-    if [ ! -d "$AOSIP_ROOT/$OUTDIR" ]; then
-        mkdir -p "$AOSIP_ROOT/$OUTDIR"
+    if [ ! -d "$DERP_ROOT/$OUTDIR" ]; then
+        mkdir -p "$DERP_ROOT/$OUTDIR"
     fi
 
     VNDNAME="$6"
@@ -84,10 +84,10 @@ function setup_vendor() {
         VNDNAME="$DEVICE"
     fi
 
-    export PRODUCTMK="$AOSIP_ROOT"/"$OUTDIR"/"$VNDNAME"-vendor.mk
-    export ANDROIDBP="$AOSIP_ROOT"/"$OUTDIR"/Android.bp
-    export ANDROIDMK="$AOSIP_ROOT"/"$OUTDIR"/Android.mk
-    export BOARDMK="$AOSIP_ROOT"/"$OUTDIR"/BoardConfigVendor.mk
+    export PRODUCTMK="$DERP_ROOT"/"$OUTDIR"/"$VNDNAME"-vendor.mk
+    export ANDROIDBP="$DERP_ROOT"/"$OUTDIR"/Android.bp
+    export ANDROIDMK="$DERP_ROOT"/"$OUTDIR"/Android.mk
+    export BOARDMK="$DERP_ROOT"/"$OUTDIR"/BoardConfigVendor.mk
 
     if [ "$4" == "true" ] || [ "$4" == "1" ]; then
         COMMON=1
@@ -871,18 +871,18 @@ function write_blueprint_header() {
 
     printf "/**\n" > $1
     NUM_REGEX='^[0-9]+$'
-    if [[ ! $INITIAL_COPYRIGHT_YEAR =~ $NUM_REGEX ]] || [ $INITIAL_COPYRIGHT_YEAR -lt 2019 ]; then
-        BLUEPRINT_INITIAL_COPYRIGHT_YEAR=2019
+    if [[ ! $INITIAL_COPYRIGHT_YEAR =~ $NUM_REGEX ]] || [ $INITIAL_COPYRIGHT_YEAR -lt 2020 ]; then
+        BLUEPRINT_INITIAL_COPYRIGHT_YEAR=2020
     else
         BLUEPRINT_INITIAL_COPYRIGHT_YEAR=$INITIAL_COPYRIGHT_YEAR
     fi
 
     if [ $BLUEPRINT_INITIAL_COPYRIGHT_YEAR -eq $YEAR ]; then
-        printf " * Copyright (C) $YEAR AOSiP\n" >> $1
-    elif [ $BLUEPRINT_INITIAL_COPYRIGHT_YEAR -le 2019 ]; then
-        printf " * Copyright (C) 2019-$YEAR AOSiP\n" >> $1
+        printf " * Copyright (C) $YEAR DerpFest\n" >> $1
+    elif [ $BLUEPRINT_INITIAL_COPYRIGHT_YEAR -le 2020 ]; then
+        printf " * Copyright (C) 2020-$YEAR DerpFest\n" >> $1
     else
-        printf " * Copyright (C) $BLUEPRINT_INITIAL_COPYRIGHT_YEAR-$YEAR AOSiP\n" >> $1
+        printf " * Copyright (C) $BLUEPRINT_INITIAL_COPYRIGHT_YEAR-$YEAR DerpFest\n" >> $1
     fi
 
     cat << EOF >> $1
@@ -931,16 +931,16 @@ function write_makefile_header() {
             printf "# Copyright (C) 2016 The CyanogenMod Project\n" > $1
         fi
         if [ $YEAR -eq 2017 ]; then
-            printf "# Copyright (C) 2017 AOSiP\n" >> $1
+            printf "# Copyright (C) 2017 DerpFest\n" >> $1
         elif [ $INITIAL_COPYRIGHT_YEAR -eq $YEAR ]; then
-            printf "# Copyright (C) $YEAR AOSiP\n" >> $1
+            printf "# Copyright (C) $YEAR DerpFest\n" >> $1
         elif [ $INITIAL_COPYRIGHT_YEAR -le 2017 ]; then
-            printf "# Copyright (C) 2017-$YEAR AOSiP\n" >> $1
+            printf "# Copyright (C) 2017-$YEAR DerpFest\n" >> $1
         else
-            printf "# Copyright (C) $INITIAL_COPYRIGHT_YEAR-$YEAR AOSiP\n" >> $1
+            printf "# Copyright (C) $INITIAL_COPYRIGHT_YEAR-$YEAR DerpFest\n" >> $1
         fi
     else
-        printf "# Copyright (C) $YEAR AOSiP\n" > $1
+        printf "# Copyright (C) $YEAR DerpFest\n" > $1
     fi
 
     cat << EOF >> $1
@@ -1185,7 +1185,7 @@ function get_file() {
 # Convert apk|jar .odex in the corresposing classes.dex
 #
 function oat2dex() {
-    local AOSIP_TARGET="$1"
+    local DERP_TARGET="$1"
     local OEM_TARGET="$2"
     local SRC="$3"
     local TARGET=
@@ -1193,16 +1193,16 @@ function oat2dex() {
     local HOST="$(uname)"
 
     if [ -z "$BAKSMALIJAR" ] || [ -z "$SMALIJAR" ]; then
-        export BAKSMALIJAR="$AOSIP_ROOT"/prebuilts/tools-lineage/common/smali/baksmali.jar
-        export SMALIJAR="$AOSIP_ROOT"/prebuilts/tools-lineage/common/smali/smali.jar
+        export BAKSMALIJAR="$DERP_ROOT"/prebuilts/tools-lineage/common/smali/baksmali.jar
+        export SMALIJAR="$DERP_ROOT"/prebuilts/tools-lineage/common/smali/smali.jar
     fi
 
     if [ -z "$VDEXEXTRACTOR" ]; then
-        export VDEXEXTRACTOR="$AOSIP_ROOT"/prebuilts/tools-lineage/"${HOST,,}"-x86/bin/vdexExtractor
+        export VDEXEXTRACTOR="$DERP_ROOT"/prebuilts/tools-lineage/"${HOST,,}"-x86/bin/vdexExtractor
     fi
 
     if [ -z "$CDEXCONVERTER" ]; then
-        export CDEXCONVERTER="$AOSIP_ROOT"/prebuilts/tools-lineage/"${HOST,,}"-x86/bin/compact_dex_converter
+        export CDEXCONVERTER="$DERP_ROOT"/prebuilts/tools-lineage/"${HOST,,}"-x86/bin/compact_dex_converter
     fi
 
     # Extract existing boot.oats to the temp folder
@@ -1222,11 +1222,11 @@ function oat2dex() {
         FULLY_DEODEXED=1 && return 0 # system is fully deodexed, return
     fi
 
-    if [ ! -f "$AOSIP_TARGET" ]; then
+    if [ ! -f "$DERP_TARGET" ]; then
         return;
     fi
 
-    if grep "classes.dex" "$AOSIP_TARGET" >/dev/null; then
+    if grep "classes.dex" "$DERP_TARGET" >/dev/null; then
         return 0 # target apk|jar is already odexed, return
     fi
 
@@ -1254,7 +1254,7 @@ function oat2dex() {
                 java -jar "$BAKSMALIJAR" deodex -o "$TMPDIR/dexout" -b "$BOOTOAT" -d "$TMPDIR" "$TMPDIR/$(basename "$OAT")"
                 java -jar "$SMALIJAR" assemble "$TMPDIR/dexout" -o "$TMPDIR/classes.dex"
             fi
-        elif [[ "$AOSIP_TARGET" =~ .jar$ ]]; then
+        elif [[ "$DERP_TARGET" =~ .jar$ ]]; then
             JAROAT="$TMPDIR/system/framework/$ARCH/boot-$(basename ${OEM_TARGET%.*}).oat"
             JARVDEX="/system/framework/boot-$(basename ${OEM_TARGET%.*}).vdex"
             if [ ! -f "$JAROAT" ]; then
@@ -1449,7 +1449,7 @@ function extract() {
     local FIXUP_HASHLIST=( ${PRODUCT_COPY_FILES_FIXUP_HASHES[@]} ${PRODUCT_PACKAGES_FIXUP_HASHES[@]} )
     local PRODUCT_COPY_FILES_COUNT=${#PRODUCT_COPY_FILES_LIST[@]}
     local COUNT=${#FILELIST[@]}
-    local OUTPUT_ROOT="$AOSIP_ROOT"/"$OUTDIR"/proprietary
+    local OUTPUT_ROOT="$DERP_ROOT"/"$OUTDIR"/proprietary
     local OUTPUT_TMP="$TMPDIR"/"$OUTDIR"/proprietary
 
     if [ "$SRC" = "adb" ]; then
@@ -1477,7 +1477,7 @@ function extract() {
             # If OTA is block based, extract it.
             elif [ -a "$DUMPDIR"/system.new.dat ]; then
                 echo "Converting system.new.dat to system.img"
-                python "$AOSIP_ROOT"/vendor/AOSIP/build/tools/sdat2img.py "$DUMPDIR"/system.transfer.list "$DUMPDIR"/system.new.dat "$DUMPDIR"/system.img 2>&1
+                python "$DERP_ROOT"/vendor/derp/build/tools/sdat2img.py "$DUMPDIR"/system.transfer.list "$DUMPDIR"/system.new.dat "$DUMPDIR"/system.img 2>&1
                 rm -rf "$DUMPDIR"/system.new.dat "$DUMPDIR"/system
                 mkdir "$DUMPDIR"/system "$DUMPDIR"/tmp
                 echo "Requesting sudo access to mount the system.img"
@@ -1566,7 +1566,7 @@ function extract() {
             printf '    + keeping pinned file with hash %s\n' "${HASH}"
         else
             FOUND=false
-            # Try AOSiP target first.
+            # Try DerpFest target first.
             # Also try to search for files stripped of
             # the "/system" prefix, if we're actually extracting
             # from a system image.
@@ -1653,7 +1653,7 @@ function extract_firmware() {
     local FILELIST=( ${PRODUCT_COPY_FILES_LIST[@]} )
     local COUNT=${#FILELIST[@]}
     local SRC="$2"
-    local OUTPUT_DIR="$AOSIP_ROOT"/"$OUTDIR"/radio
+    local OUTPUT_DIR="$DERP_ROOT"/"$OUTDIR"/radio
 
     if [ "$VENDOR_RADIO_STATE" -eq "0" ]; then
         echo "Cleaning firmware output directory ($OUTPUT_DIR).."

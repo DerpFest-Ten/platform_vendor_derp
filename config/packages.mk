@@ -7,7 +7,7 @@ PRODUCT_PACKAGES += \
     AOSiPOverlayStub \
     Updater
 
-# Extra tools in AOSiP
+# Extra tools in DerpFest
 PRODUCT_PACKAGES += \
     7z \
     awk \

@@ -35,16 +35,16 @@ endif
 
 # Backup Tool
 PRODUCT_COPY_FILES += \
-    vendor/aosip/prebuilt/common/bin/backuptool.sh:install/bin/backuptool.sh \
-    vendor/aosip/prebuilt/common/bin/backuptool.functions:install/bin/backuptool.functions \
-    vendor/aosip/prebuilt/common/bin/50-base.sh:$(TARGET_COPY_OUT_SYSTEM)/addon.d/50-base.sh \
-    vendor/aosip/prebuilt/common/bin/blacklist:$(TARGET_COPY_OUT_SYSTEM)/addon.d/blacklist
+    vendor/derp/prebuilt/common/bin/backuptool.sh:install/bin/backuptool.sh \
+    vendor/derp/prebuilt/common/bin/backuptool.functions:install/bin/backuptool.functions \
+    vendor/derp/prebuilt/common/bin/50-base.sh:$(TARGET_COPY_OUT_SYSTEM)/addon.d/50-base.sh \
+    vendor/derp/prebuilt/common/bin/blacklist:$(TARGET_COPY_OUT_SYSTEM)/addon.d/blacklist
 
 ifneq ($(AB_OTA_PARTITIONS),)
 PRODUCT_COPY_FILES += \
-    vendor/aosip/prebuilt/common/bin/backuptool_ab.sh:$(TARGET_COPY_OUT_SYSTEM)/bin/backuptool_ab.sh \
-    vendor/aosip/prebuilt/common/bin/backuptool_ab.functions:$(TARGET_COPY_OUT_SYSTEM)/bin/backuptool_ab.functions \
-    vendor/aosip/prebuilt/common/bin/backuptool_postinstall.sh:$(TARGET_COPY_OUT_SYSTEM)/bin/backuptool_postinstall.sh
+    vendor/derp/prebuilt/common/bin/backuptool_ab.sh:$(TARGET_COPY_OUT_SYSTEM)/bin/backuptool_ab.sh \
+    vendor/derp/prebuilt/common/bin/backuptool_ab.functions:$(TARGET_COPY_OUT_SYSTEM)/bin/backuptool_ab.functions \
+    vendor/derp/prebuilt/common/bin/backuptool_postinstall.sh:$(TARGET_COPY_OUT_SYSTEM)/bin/backuptool_postinstall.sh
 endif
 
 # Charger
@@ -53,12 +53,12 @@ PRODUCT_PACKAGES += \
 
 # Configs
 PRODUCT_COPY_FILES += \
-    vendor/aosip/prebuilt/common/etc/sysconfig/aosip-power-whitelist.xml:$(TARGET_COPY_OUT_SYSTEM)/etc/sysconfig/aosip-power-whitelist.xml \
-    vendor/aosip/prebuilt/common/etc/sysconfig/dialer_experience.xml:$(TARGET_COPY_OUT_SYSTEM)/etc/sysconfig/dialer_experience.xml \
-    vendor/aosip/prebuilt/common/etc/sysconfig/turbo.xml:$(TARGET_COPY_OUT_SYSTEM)/etc/sysconfig/turbo.xml
+    vendor/derp/prebuilt/common/etc/sysconfig/derp-power-whitelist.xml:$(TARGET_COPY_OUT_SYSTEM)/etc/sysconfig/derp-power-whitelist.xml \
+    vendor/derp/prebuilt/common/etc/sysconfig/dialer_experience.xml:$(TARGET_COPY_OUT_SYSTEM)/etc/sysconfig/dialer_experience.xml \
+    vendor/derp/prebuilt/common/etc/sysconfig/turbo.xml:$(TARGET_COPY_OUT_SYSTEM)/etc/sysconfig/turbo.xml
 
-# Copy all AOSiP-specific init rc files
-$(foreach f,$(wildcard vendor/aosip/prebuilt/common/etc/init/*.rc),\
+# Copy all DerpFest-specific init rc files
+$(foreach f,$(wildcard vendor/derp/prebuilt/common/etc/init/*.rc),\
 	$(eval PRODUCT_COPY_FILES += $(f):$(TARGET_COPY_OUT_SYSTEM)/etc/init/$(notdir $f)))
 
 # Don't compile SystemUITests
@@ -69,9 +69,9 @@ PRODUCT_ART_TARGET_INCLUDE_DEBUG_BUILD := false
 
 # Permissions
 PRODUCT_COPY_FILES += \
-    vendor/aosip/prebuilt/common/etc/permissions/privapp-permissions-aosip-product.xml:$(TARGET_COPY_OUT_PRODUCT)/etc/permissions/privapp-permissions-aosip.xml \
-    vendor/aosip/prebuilt/common/etc/permissions/privapp-permissions-aosip.xml:$(TARGET_COPY_OUT_SYSTEM)/etc/permissions/privapp-permissions-aosip.xml \
-    vendor/aosip/prebuilt/common/etc/permissions/privapp-permissions-elgoog.xml:$(TARGET_COPY_OUT_SYSTEM)/etc/permissions/privapp-permissions-elgoog.xml
+    vendor/derp/prebuilt/common/etc/permissions/privapp-permissions-derp-product.xml:$(TARGET_COPY_OUT_PRODUCT)/etc/permissions/privapp-permissions-derp.xml \
+    vendor/derp/prebuilt/common/etc/permissions/privapp-permissions-derp.xml:$(TARGET_COPY_OUT_SYSTEM)/etc/permissions/privapp-permissions-derp.xml \
+    vendor/derp/prebuilt/common/etc/permissions/privapp-permissions-elgoog.xml:$(TARGET_COPY_OUT_SYSTEM)/etc/permissions/privapp-permissions-elgoog.xml
 
 # Strip the local variable table and the local variable type table to reduce
 # the size of the system image. This has no bearing on stack traces, but will
@@ -85,7 +85,7 @@ PRODUCT_RESTRICT_VENDOR_FILES := false
 include vendor/overlay/overlays.mk
 
 # Packages
-include vendor/aosip/config/packages.mk
+include vendor/derp/config/packages.mk
 
 # Versioning
-include vendor/aosip/config/version.mk
+include vendor/derp/config/version.mk

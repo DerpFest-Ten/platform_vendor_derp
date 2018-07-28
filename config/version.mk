@@ -14,23 +14,26 @@
 
 # Versioning System
 BUILD_DATE := $(shell date +%Y%m%d)
-TARGET_PRODUCT_SHORT := $(subst aosip_,,$(AOSIP_BUILDTYPE))
+TARGET_PRODUCT_SHORT := $(subst derp_,,$(DERP_BUILDTYPE))
 
-AOSIP_BUILDTYPE ?= Quiche
-AOSIP_BUILD_VERSION := 10
-AOSIP_VERSION := $(AOSIP_BUILD_VERSION)-$(AOSIP_BUILDTYPE)-$(AOSIP_BUILD)-$(BUILD_DATE)
-ROM_FINGERPRINT := AOSiP/$(PLATFORM_VERSION)/$(TARGET_PRODUCT_SHORT)/$(shell date -u +%H%M)
+DERP_BUILDTYPE ?= Beta
+DERP_BUILD_VERSION := 10
+
+ifeq ($(DERP_BUILDTYPE), CI)
+    DERP_VERSION := $(DERP_BUILD_VERSION)-Bare-$(DERP_BUILDTYPE)-$(DERP_BUILD)-$(shell date -u +%Y%m%d-%H%M)
+endif
+
+ifndef DERP_VERSION
+    DERP_VERSION := $(DERP_BUILD_VERSION)-Bare-$(DERP_BUILDTYPE)-$(DERP_BUILD)-$(BUILD_DATE)
+endif
+
+ROM_FINGERPRINT := DerpFest/$(PLATFORM_VERSION)/$(TARGET_PRODUCT_SHORT)/$(shell date -u +%H%M)
 
 PRODUCT_SYSTEM_DEFAULT_PROPERTIES += \
-  ro.aosip.build.version=$(AOSIP_BUILD_VERSION) \
-  ro.aosip.build.date=$(BUILD_DATE) \
-  ro.aosip.buildtype=$(AOSIP_BUILDTYPE) \
-  ro.aosip.fingerprint=$(ROM_FINGERPRINT) \
-  ro.aosip.version=$(AOSIP_VERSION) \
-  ro.aosip.device=$(AOSIP_BUILD) \
-  ro.modversion=$(AOSIP_VERSION)
-
-ifneq ($(OVERRIDE_OTA_CHANNEL),)
-    PRODUCT_PROPERTY_OVERRIDES += \
-        aosip.updater.uri=$(OVERRIDE_OTA_CHANNEL)
-endif
+  ro.derp.build.version=$(DERP_BUILD_VERSION) \
+  ro.derp.build.date=$(BUILD_DATE) \
+  ro.derp.buildtype=$(DERP_BUILDTYPE) \
+  ro.derp.fingerprint=$(ROM_FINGERPRINT) \
+  ro.derp.version=$(DERP_VERSION) \
+  ro.derp.device=$(DERP_BUILD) \
+  ro.modversion=$(DERP_VERSION)
