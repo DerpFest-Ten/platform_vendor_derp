@@ -4,6 +4,7 @@ PRODUCT_PACKAGES += \
     LatinIME \
     messaging \
     OmniStyle \
+    OPScreenRecorder \
     ThemePicker \
     AOSiPOverlayStub \
     Updater
