@@ -90,6 +90,11 @@ PRODUCT_DEXPREOPT_SPEED_APPS += \
     Settings \
     SystemUI
 
+# Allows registering device to Google easier for gapps
+# Integrates package for easier Google Pay fixing
+PRODUCT_PACKAGES += \
+    sqlite3
+
 # Overlays
 include vendor/overlay/overlays.mk
 
