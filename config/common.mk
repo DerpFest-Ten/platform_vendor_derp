@@ -101,5 +101,8 @@ include vendor/overlay/overlays.mk
 # Packages
 include vendor/derp/config/packages.mk
 
+# Customization
+include vendor/google/customization/config.mk
+
 # Versioning
 include vendor/derp/config/version.mk
