@@ -37,8 +37,7 @@ endif
 PRODUCT_COPY_FILES += \
     vendor/derp/prebuilt/common/bin/backuptool.sh:install/bin/backuptool.sh \
     vendor/derp/prebuilt/common/bin/backuptool.functions:install/bin/backuptool.functions \
-    vendor/derp/prebuilt/common/bin/50-base.sh:$(TARGET_COPY_OUT_SYSTEM)/addon.d/50-base.sh \
-    vendor/derp/prebuilt/common/bin/blacklist:$(TARGET_COPY_OUT_SYSTEM)/addon.d/blacklist
+    vendor/derp/prebuilt/common/bin/50-base.sh:$(TARGET_COPY_OUT_SYSTEM)/addon.d/50-base.sh
 
 ifneq ($(AB_OTA_PARTITIONS),)
 PRODUCT_COPY_FILES += \
