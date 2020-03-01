@@ -88,7 +88,8 @@ PRODUCT_RESTRICT_VENDOR_FILES := false
 # Dex preopt
 PRODUCT_DEXPREOPT_SPEED_APPS += \
     Settings \
-    SystemUI
+    SystemUI \
+    NexusLauncherRelease
 
 # Allows registering device to Google easier for gapps
 # Integrates package for easier Google Pay fixing
