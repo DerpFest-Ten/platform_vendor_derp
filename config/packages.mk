@@ -10,6 +10,10 @@ PRODUCT_PACKAGES += \
     ThemePicker \
     Updater
 
+# Long Screenshot
+PRODUCT_PACKAGES += \
+    StitchImage
+
 # Face Unlock
 PRODUCT_PACKAGES += \
     FaceUnlockService
