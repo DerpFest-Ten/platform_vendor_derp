@@ -1,12 +1,13 @@
 # Required packages
 PRODUCT_PACKAGES += \
+    AOSiPOverlayStub \
     Gallery2 \
     LatinIME \
     messaging \
     OmniStyle \
     OPScreenRecorder \
+    SimIcons \
     ThemePicker \
-    AOSiPOverlayStub \
     Updater
 
 # Face Unlock
