@@ -102,7 +102,7 @@ include vendor/overlay/overlays.mk
 include vendor/derp/config/packages.mk
 
 # Customization
-include vendor/google/customization/config.mk
+include vendor/google-customization/config.mk
 
 # Versioning
 include vendor/derp/config/version.mk
