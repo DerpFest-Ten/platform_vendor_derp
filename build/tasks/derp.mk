@@ -1,6 +1,6 @@
 DERP_TARGET_PACKAGE := $(PRODUCT_OUT)/DerpFest-$(DERP_VERSION).zip
 
-.PHONY: otapackage derp bacon
+.PHONY: derp bacon
 otapackage: $(INTERNAL_OTA_PACKAGE_TARGET)
 derp: otapackage
 	$(hide) mv $(INTERNAL_OTA_PACKAGE_TARGET) $(DERP_TARGET_PACKAGE)
