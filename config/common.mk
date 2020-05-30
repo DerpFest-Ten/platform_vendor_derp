@@ -87,9 +87,10 @@ PRODUCT_RESTRICT_VENDOR_FILES := false
 
 # Dex preopt
 PRODUCT_DEXPREOPT_SPEED_APPS += \
+    Lawnchair \
+    NexusLauncherRelease \
     Settings \
-    SystemUI \
-    NexusLauncherRelease
+    SystemUI
 
 # Allows registering device to Google easier for gapps
 # Integrates package for easier Google Pay fixing
